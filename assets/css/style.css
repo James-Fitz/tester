@@ -1,0 +1,6 @@
+#player-screen, #computer-screen {
+    width: 10em;
+    height: 10em;
+    background-color: grey;
+    border: 2px solid black;
+}
