@@ -5,8 +5,10 @@ const resultText = document.getElementById("game-result");
 let playerChoice;
 let computerChoice;
 
-let playerScore = document.getElementById("player-score");
-let computerScore = document.getElementById("computer-score");
+let playerScore = parseInt(document.getElementById("player-score").innerHTML);
+let computerScore = parseInt(document.getElementById("computer-score").innerHTML);
+
+console.log(computerScore);
 
 /** 
  * Creates an array of all possible choices
@@ -18,19 +20,33 @@ function getComputerChoice() {
     return choices[randomChoice];
 }
 
+/** 
+ * Loop through all player choices.
+ * Once the player clicks a choice
+ * playGame function will run
+ */
 for (let choice of playerChoices) {
     choice.addEventListener('click', playGame);
 }
 
+/** Function that controls the flow of the game.
+ * Console logs player choice and computer choice.
+ * Runs the getResult function to determine the winner.
+ */
 function playGame(event) {
     playerChoice = event.target.id;
     computerChoice = getComputerChoice();
     console.log(`Player choice is ${playerChoice}`);
     console.log(`Computer choice is ${computerChoice}`);
     getResult();
-    
 }
 
+/**
+ * Function that determines the result of the player choice vs the computer choice.
+ * Outputs resultTest to display to user who won.
+ * Increases the score of the winner by one.
+ * Runs the endGame function once the round result is determined.
+ */
 function getResult() {
     switch (playerChoice + computerChoice) {
         case 'rockscissors':
@@ -64,31 +80,33 @@ function getResult() {
             break;
     }
     endGame();
-    console.log(playerScore.innerHTML);
-    console.log(computerScore.innerHTML);
+    console.log(playerScore);
+    console.log(computerScore);
 }
 
 /**
- * Player score is incremented.
+ * Function to increase player score by one.
  */
- function increasePlayerScore() {
-    ++playerScore.innerHTML;
+function increasePlayerScore() {
+    ++playerScore;
 }
 
 /**
- * Computer score is incremented.
+ * Function to increase computer score by one.
  */
 function increaseComputerScore() {
-    ++computerScore.innerHTML;
+    ++computerScore;
 }
 
-// The game finishes when the user or the pc gets to 10 points
+/**
+ *  Function to end the game when either player reaches 5 wins or computer reaches 5 wins.
+ */
 function endGame() {
-    if (parseInt(playerScore.innerHTML) === 5) {
+    if (playerScore === 5) {
         console.log("player wins");
         playerScore = 0;
-        computerScore = 0; 
-    }else if (parseInt(computerScore.innerHTML) === 5) {
+        computerScore = 0;
+    } else if (computerScore === 5) {
         console.log("computer wins");
         playerScore = 0;
         computerScore = 0;
